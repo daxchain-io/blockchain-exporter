@@ -14,9 +14,9 @@ A Helm chart for deploying the blockchain-exporter, a FastAPI-based exporter tha
 The chart is published to GitHub Container Registry after each release and is publicly accessible:
 
 ```bash
-helm install blockchain-exporter oci://ghcr.io/skthomasjr/helm-charts/blockchain-exporter --namespace blockchain-exporter --create-namespace
+helm install blockchain-exporter oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter --namespace blockchain-exporter --create-namespace
 
-helm upgrade blockchain-exporter oci://ghcr.io/skthomasjr/helm-charts/blockchain-exporter --namespace blockchain-exporter
+helm upgrade blockchain-exporter oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter --namespace blockchain-exporter
 ```
 
 The standard namespace is `blockchain-exporter` (it will be created automatically if it doesn't exist).
@@ -36,7 +36,7 @@ The following table lists the key configurable parameters and their default valu
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `replicaCount` | Number of replicas | `1` |
-| `image.repository` | Container image repository | `ghcr.io/skthomasjr/images/blockchain-exporter` |
+| `image.repository` | Container image repository | `ghcr.io/daxchain-io/images/blockchain-exporter` |
 | `image.tag` | Container image tag | `latest` |
 | `image.pullPolicy` | Image pull policy | `IfNotPresent` |
 | `service.type` | Kubernetes service type | `ClusterIP` |
@@ -128,11 +128,11 @@ resources:
 To upgrade to a newer version:
 
 ```bash
-helm upgrade blockchain-exporter oci://ghcr.io/skthomasjr/helm-charts/blockchain-exporter --namespace blockchain-exporter
+helm upgrade blockchain-exporter oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter --namespace blockchain-exporter
 ```
 
 ## Additional Resources
 
 - [Chart Values Reference](values.yaml)
 - [Main README](../../../README.md)
-- [Application Documentation](https://github.com/skthomasjr/blockchain-exporter)
+- [Application Documentation](https://github.com/daxchain-io/blockchain-exporter)

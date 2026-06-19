@@ -1,12 +1,12 @@
 # blockchain-exporter
 
-[![CI](https://github.com/skthomasjr/blockchain-exporter/actions/workflows/ci.yaml/badge.svg)](https://github.com/skthomasjr/blockchain-exporter/actions/workflows/ci.yaml)
-[![Coverage](https://img.shields.io/badge/coverage-85%25%2B-brightgreen)](https://github.com/skthomasjr/blockchain-exporter)
-[![Release](https://img.shields.io/github/v/tag/skthomasjr/blockchain-exporter?label=release&sort=semver)](https://github.com/skthomasjr/blockchain-exporter/releases)
+[![CI](https://github.com/daxchain-io/blockchain-exporter/actions/workflows/ci.yaml/badge.svg)](https://github.com/daxchain-io/blockchain-exporter/actions/workflows/ci.yaml)
+[![Coverage](https://img.shields.io/badge/coverage-85%25%2B-brightgreen)](https://github.com/daxchain-io/blockchain-exporter)
+[![Release](https://img.shields.io/github/v/tag/daxchain-io/blockchain-exporter?label=release&sort=semver)](https://github.com/daxchain-io/blockchain-exporter/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Docker](https://img.shields.io/badge/docker-ghcr.io%2Fskthomasjr%2Fimages%2Fblockchain--exporter-blue)](https://github.com/skthomasjr/blockchain-exporter/pkgs/container/images%2Fblockchain-exporter)
+[![Docker](https://img.shields.io/badge/docker-ghcr.io%2Fdaxchain--io%2Fimages%2Fblockchain--exporter-blue)](https://github.com/daxchain-io/blockchain-exporter/pkgs/container/images%2Fblockchain-exporter)
 [![Kubernetes Ready](https://img.shields.io/badge/Kubernetes-Ready-326ce5.svg)](https://kubernetes.io)
-[![Helm Chart](https://img.shields.io/badge/Helm%20Chart-OCI-blue)](https://github.com/skthomasjr/blockchain-exporter/tree/main/helm/charts/blockchain-exporter)
+[![Helm Chart](https://img.shields.io/badge/Helm%20Chart-OCI-blue)](https://github.com/daxchain-io/blockchain-exporter/tree/main/helm/charts/blockchain-exporter)
 [![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.121+-00a396.svg)](https://fastapi.tiangolo.com)
 [![Platform](https://img.shields.io/badge/platform-linux%2Famd64%20%7C%20linux%2Farm64-blue)](<>)
@@ -152,17 +152,17 @@ The application includes a Helm chart for Kubernetes deployment. The chart manag
 
 ### Installing from OCI Registry
 
-After a release, the Helm chart is available at `ghcr.io/skthomasjr/helm-charts/blockchain-exporter`:
+After a release, the Helm chart is available at `ghcr.io/daxchain-io/helm-charts/blockchain-exporter`:
 
 ```bash
 # Add the OCI registry as a Helm repository (one-time setup)
-helm registry login ghcr.io -u skthomasjr
+helm registry login ghcr.io -u daxchain-io
 
 # Install from OCI registry
-helm install blockchain-exporter oci://ghcr.io/skthomasjr/helm-charts/blockchain-exporter --version 0.1.0
+helm install blockchain-exporter oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter --version 0.1.0
 
 # Or upgrade an existing installation
-helm upgrade blockchain-exporter oci://ghcr.io/skthomasjr/helm-charts/blockchain-exporter --version 0.1.0
+helm upgrade blockchain-exporter oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter --version 0.1.0
 ```
 
 ### Configuration
@@ -281,26 +281,26 @@ This Prometheus exporter exposes metrics that can be scraped by Prometheus and u
      git tag v0.0.1
      git push origin v0.0.1
      ```
-- **Verify Docker image**: After pushing the tag, the GitHub Actions workflow will automatically build and push the Docker image to `ghcr.io/skthomasjr/images/blockchain-exporter`. Check the Actions tab to confirm the image was published successfully.
-- **Verify Helm chart**: The workflow will also package and push the Helm chart to `ghcr.io/skthomasjr/helm-charts/blockchain-exporter` with the same version as your tag.
+- **Verify Docker image**: After pushing the tag, the GitHub Actions workflow will automatically build and push the Docker image to `ghcr.io/daxchain-io/images/blockchain-exporter`. Check the Actions tab to confirm the image was published successfully.
+- **Verify Helm chart**: The workflow will also package and push the Helm chart to `ghcr.io/daxchain-io/helm-charts/blockchain-exporter` with the same version as your tag.
 - **Make packages public**: After the first release, make both packages public:
   1. Go to your repository on GitHub
-  1. Click on "Packages" in the right sidebar (or navigate to `https://github.com/skthomasjr?tab=packages`)
+  1. Click on "Packages" in the right sidebar (or navigate to `https://github.com/orgs/daxchain-io/packages`)
   1. For each package (`images/blockchain-exporter` Docker image and `helm-charts` Helm chart):
      - Click on the package name
      - Click "Package settings"
      - Scroll to "Danger Zone" and click "Change visibility"
      - Select "Public" and confirm
 
-The Docker image will be available at `ghcr.io/skthomasjr/images/blockchain-exporter` with tags matching your release versions (e.g., `v0.0.1`, `0.0.1`, `0.0`, `0`).
+The Docker image will be available at `ghcr.io/daxchain-io/images/blockchain-exporter` with tags matching your release versions (e.g., `v0.0.1`, `0.0.1`, `0.0`, `0`).
 
-The Helm chart will be available at `oci://ghcr.io/skthomasjr/helm-charts/blockchain-exporter` with versions matching your release tags (e.g., `0.0.1`).
+The Helm chart will be available at `oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter` with versions matching your release tags (e.g., `0.0.1`).
 
 ### CI Expectations
 
 - GitHub Actions workflow runs `make lint` (Ruff, Markdown formatting, Hadolint), `make test` (pytest with coverage), and `make validate-config` on pushes to `main` and pull requests.
-- **Docker image build**: When you publish a GitHub release or push a version tag (e.g., `v0.0.1`), the workflow automatically builds and pushes the Docker image to GitHub Container Registry (`ghcr.io/skthomasjr/images/blockchain-exporter`).
-- **Helm chart build**: The same release trigger also packages and pushes the Helm chart to the OCI registry (`oci://ghcr.io/skthomasjr/helm-charts/blockchain-exporter`).
+- **Docker image build**: When you publish a GitHub release or push a version tag (e.g., `v0.0.1`), the workflow automatically builds and pushes the Docker image to GitHub Container Registry (`ghcr.io/daxchain-io/images/blockchain-exporter`).
+- **Helm chart build**: The same release trigger also packages and pushes the Helm chart to the OCI registry (`oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter`).
 - Coverage gate: ensure the pytest TOTAL line stays at or above **85%** locally before pushing.
 - Treat `make lint && make test && make validate-config` as the local pre-push macro to replicate CI.
 
