@@ -27,7 +27,6 @@ mass reformatting, or new runtime dependencies.
   metric collection in `rpc.py` / `collectors.py`, Prometheus metrics in
   `metrics.py`, and HTTP endpoints in `api.py` / `health.py`. Config loads via
   `config.py` / `settings.py`.
-- **Coverage gaps:** `docs/TEST_COVERAGE_GAPS.md`.
 
 ## Design decisions
 

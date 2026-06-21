@@ -256,7 +256,7 @@ startupProbe:
 ## Development Workflow
 
 - `make run`: start both servers (health on `http://localhost:8080`, Prometheus metrics on `http://localhost:9100`).
-- `make lint`: run Ruff, Markdown formatting (`mdformat --check README.md docs`), Hadolint for Dockerfiles, and Helm chart linting.
+- `make lint`: run Ruff, Markdown formatting (`mdformat --check README.md CLAUDE.md`), Hadolint for Dockerfiles, and Helm chart linting.
 - `make lint-md`: run only the Markdown lint step.
 - `make lint-docker`: run Hadolint against `Dockerfile` (uses local `hadolint` if present, otherwise falls back to Docker).
 - `make lint-helm`: lint the Helm chart templates.

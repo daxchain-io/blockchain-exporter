@@ -17,7 +17,7 @@ lint: lint-md lint-docker lint-helm
 	pipx run poetry run ruff check .
 
 lint-md:
-	pipx run poetry run mdformat --wrap=keep --check README.md docs
+	pipx run poetry run mdformat --wrap=keep --check README.md CLAUDE.md
 
 lint-docker:
 	@if command -v hadolint >/dev/null 2>&1; then \

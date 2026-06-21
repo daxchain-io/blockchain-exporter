@@ -32,7 +32,7 @@ jobs:
         run: poetry run ruff check .
 
       - name: Lint (Markdown)
-        run: poetry run mdformat --wrap=keep --check README.md docs
+        run: poetry run mdformat --wrap=keep --check README.md CLAUDE.md
 
       - name: Lint (Dockerfile)
         run: docker run --rm -i hadolint/hadolint < Dockerfile
