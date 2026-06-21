@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, cast
 
 from .config import BlockchainConfig
 from .metrics import MetricsStoreProtocol, get_metrics
-from .rpc import RpcClient, RpcClientProtocol
+from .rpc import RpcClient, RpcClientProtocol, Web3ProviderProtocol
 from .runtime_settings import RuntimeSettings, get_runtime_settings
 from .settings import AppSettings
 
@@ -52,7 +52,7 @@ def default_rpc_factory(blockchain: BlockchainConfig) -> RpcClientProtocol:
 
     pool_manager = get_connection_pool_manager()
     web3_client = pool_manager.get_client(blockchain)
-    return RpcClient(web3_client, blockchain)
+    return RpcClient(cast(Web3ProviderProtocol, web3_client), blockchain)
 
 
 def create_default_context() -> ApplicationContext:

@@ -40,11 +40,8 @@ jobs:
       - name: Lint (Dockerfile)
         run: docker run --rm -i hadolint/hadolint < Dockerfile
 
-      - name: Type check (advisory)
-        # Non-blocking: the codebase has pre-existing type findings. Make this
-        # blocking once those are cleared.
+      - name: Type check
         run: poetry run mypy src/blockchain_exporter
-        continue-on-error: true
 
       - name: Audit dependencies
         run: poetry run pip-audit

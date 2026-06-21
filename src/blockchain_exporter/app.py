@@ -150,7 +150,7 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
     # Store context and initialize application state.
     app.state.context = context
     app.state.blockchain_configs = blockchains
-    app.state.polling_tasks: list[asyncio.Task] = []
+    app.state.polling_tasks = []
 
     # Perform warm poll if enabled (synchronous poll before server starts).
     # This populates metrics before readiness flips to healthy, improving

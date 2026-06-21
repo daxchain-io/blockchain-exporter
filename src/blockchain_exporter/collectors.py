@@ -5,8 +5,9 @@ from __future__ import annotations
 import logging
 import time
 from decimal import Decimal, InvalidOperation
-from typing import Set
+from typing import Set, cast
 
+from eth_typing import ChecksumAddress
 from web3 import Web3
 from web3.exceptions import Web3RPCError
 
@@ -455,7 +456,7 @@ def _collect_contract_total_supply(
     contract_labels: ContractLabels,
 ) -> Decimal:
     contract_proxy = runtime.web3.eth.contract(
-        address=contract_address,
+        address=cast(ChecksumAddress, contract_address),
         abi=[
             {
                 "name": "totalSupply",

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 class BlockchainExporterError(Exception):
     """Base exception for all blockchain exporter errors.
@@ -107,7 +109,7 @@ class RpcProtocolError(RpcError):
         *,
         rpc_error_code: int | None = None,
         rpc_error_message: str | None = None,
-        **kwargs: object,
+        **kwargs: Any,
     ) -> None:
         """Initialize the RPC protocol error.
 
@@ -186,7 +188,7 @@ class ValidationError(ConfigError):
         *,
         value: object | None = None,
         expected_type: str | None = None,
-        **kwargs: object,
+        **kwargs: Any,
     ) -> None:
         """Initialize the validation error.
 

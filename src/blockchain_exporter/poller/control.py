@@ -5,6 +5,9 @@ from __future__ import annotations
 import asyncio
 import logging
 import time
+from typing import cast
+
+from web3 import Web3
 
 from ..config import BlockchainConfig
 from ..context import ApplicationContext, get_application_context
@@ -81,7 +84,7 @@ async def poll_blockchain(
                             from .connection_pool import get_connection_pool_manager
 
                             pool_manager = get_connection_pool_manager()
-                            pool_manager.return_client(blockchain, rpc_client.web3)
+                            pool_manager.return_client(blockchain, cast(Web3, rpc_client.web3))
                         except Exception:  # noqa: BLE001
                             # Ignore errors when returning to pool (e.g., if web3 is None)
                             # This prevents cascading failures during shutdown or test cleanup

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Iterable
+from typing import Iterable, cast
 
 from web3 import Web3
 
@@ -77,7 +77,7 @@ class ChainRuntimeContext:
 
     @property
     def web3(self) -> Web3:
-        return self.rpc.web3
+        return cast(Web3, self.rpc.web3)
 
     def account_labels(self, account: AccountConfig | ContractAccountConfig) -> AccountLabels:
         return AccountLabels(

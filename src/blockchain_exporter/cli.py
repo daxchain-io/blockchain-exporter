@@ -49,7 +49,7 @@ def validate_config(config_path: str | None = None) -> None:
 
 
 def _serialize(value: Any) -> Any:
-    if is_dataclass(value):
+    if is_dataclass(value) and not isinstance(value, type):
         return {key: _serialize(val) for key, val in asdict(value).items()}
     if isinstance(value, list):
         return [_serialize(item) for item in value]

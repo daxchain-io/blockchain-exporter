@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import time
+from typing import cast
 
 from web3 import Web3
 
@@ -24,7 +25,7 @@ from ..metrics import (
     update_chain_label_cache,
 )
 from ..models import ChainRuntimeContext
-from ..rpc import RpcClient, RpcClientProtocol
+from ..rpc import RpcClient, RpcClientProtocol, Web3ProviderProtocol
 from .intervals import create_web3_client
 
 LOGGER = get_logger(__name__)
@@ -63,14 +64,14 @@ def collect_chain_metrics_sync(
 
         return False
 
-    chain_id_label = _resolve_chain_id_label(blockchain, web3_client)
+    chain_id_label = _resolve_chain_id_label(blockchain, cast(Web3, web3_client))
 
     metrics_bundle = metrics or get_metrics()
 
     runtime = ChainRuntimeContext(
         config=blockchain,
         chain_id_label=chain_id_label,
-        rpc=rpc_client or RpcClient(web3_client, blockchain, chain_id_label=chain_id_label),
+        rpc=rpc_client or RpcClient(cast(Web3ProviderProtocol, web3_client), blockchain, chain_id_label=chain_id_label),
         metrics=metrics_bundle,
         chain_state=ChainMetricLabelState(chain_id_label=chain_id_label),
     )

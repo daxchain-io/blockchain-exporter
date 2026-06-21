@@ -6,7 +6,7 @@ import json
 import logging
 from contextlib import contextmanager
 from time import monotonic
-from typing import Any, Dict, Iterator
+from typing import Any, Dict, Iterator, Literal
 
 from .config import BlockchainConfig, ContractConfig
 from .metrics import get_cached_chain_id_label
@@ -124,7 +124,7 @@ def resolve_color_message(record: logging.LogRecord, color_message: str | None) 
 
 class JsonFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
-        log_record = {
+        log_record: dict[str, object] = {
             "timestamp": self.formatTime(record, self.datefmt),
             "level": record.levelname,
             "logger": record.name,
@@ -152,7 +152,7 @@ class StructuredTextFormatter(logging.Formatter):
         self,
         fmt: str | None = None,
         datefmt: str | None = None,
-        style: str = "%",
+        style: Literal["%", "{", "$"] = "%",
         *,
         color_enabled: bool = True,
     ) -> None:

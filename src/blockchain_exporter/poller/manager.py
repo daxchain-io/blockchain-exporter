@@ -213,7 +213,7 @@ class PollerManager:
                 pass
 
         # Start tasks for new blockchains
-        new_tasks: list[asyncio.Task] = []
+        new_tasks: list[tuple[tuple[str, str], asyncio.Task]] = []
         for identity in to_add:
             blockchain = new_blockchain_map[identity]
             poll_task = asyncio.create_task(

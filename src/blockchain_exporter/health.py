@@ -146,7 +146,7 @@ def generate_readiness_report() -> Tuple[bool, List[Dict[str, str]]]:
 def format_metrics_payload(payload: bytes) -> bytes:
     text = payload.decode()
 
-    lines = []
+    lines: list[str] = []
 
     for line in text.splitlines():
         if not line:

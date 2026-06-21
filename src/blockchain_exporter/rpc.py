@@ -461,7 +461,7 @@ def execute_with_retries(
                 chain_id_label=chain_id_label,
             )
 
-            log_kwargs: dict[str, Any] = {}
+            log_kwargs = {}
 
             if include_traceback:
                 log_kwargs["exc_info"] = exc

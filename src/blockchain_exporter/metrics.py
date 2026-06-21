@@ -373,21 +373,21 @@ def clear_cached_metrics(blockchain: BlockchainConfig) -> bool:
     CHAIN_HEALTH_STATUS.pop((blockchain.name, state.chain_id_label), None)
     CHAIN_LAST_SUCCESS.pop((blockchain.name, state.chain_id_label), None)
 
-    for labels in state.account_balance_labels:
-        _safe_remove_metric(metrics.account.balance_eth, labels)
-        _safe_remove_metric(metrics.account.balance_wei, labels)
+    for account_labels in state.account_balance_labels:
+        _safe_remove_metric(metrics.account.balance_eth, account_labels)
+        _safe_remove_metric(metrics.account.balance_wei, account_labels)
 
-    for labels in state.contract_balance_labels:
-        _safe_remove_metric(metrics.contract.balance_eth, labels)
-        _safe_remove_metric(metrics.contract.balance_wei, labels)
-        _safe_remove_metric(metrics.contract.token_supply, labels)
+    for contract_labels in state.contract_balance_labels:
+        _safe_remove_metric(metrics.contract.balance_eth, contract_labels)
+        _safe_remove_metric(metrics.contract.balance_wei, contract_labels)
+        _safe_remove_metric(metrics.contract.token_supply, contract_labels)
 
-    for labels in state.contract_transfer_labels:
-        _safe_remove_metric(metrics.contract.transfer_count, labels)
+    for transfer_labels in state.contract_transfer_labels:
+        _safe_remove_metric(metrics.contract.transfer_count, transfer_labels)
 
-    for labels in state.account_token_labels:
-        _safe_remove_metric(metrics.account.token_balance, labels)
-        _safe_remove_metric(metrics.account.token_balance_raw, labels)
+    for token_labels in state.account_token_labels:
+        _safe_remove_metric(metrics.account.token_balance, token_labels)
+        _safe_remove_metric(metrics.account.token_balance_raw, token_labels)
 
     return True
 
