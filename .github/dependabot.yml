@@ -1,0 +1,55 @@
+# Dependabot keeps this deprecated, light-maintenance repo patched between the
+# maintainer's occasional visits. Updates are weekly and grouped to keep PR
+# noise low; security fixes are the priority (see also GitHub's Dependabot
+# security updates, enabled in repo Settings → Code security).
+version: 2
+updates:
+  # Python dependencies (Poetry: pyproject.toml + poetry.lock)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps"
+    groups:
+      # Batch minor/patch bumps into one PR; majors get isolated PRs.
+      python-deps:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions used by .github/workflows/ci.yaml
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "ci"
+    groups:
+      actions:
+        patterns:
+          - "*"
+
+  # Base image for the Dockerfile (python:3.11-slim)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "docker"
+    groups:
+      docker:
+        patterns:
+          - "*"
