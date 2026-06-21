@@ -35,6 +35,8 @@ build-backend = "poetry.core.masonry.api"
 dev = [
     "httpx2 (>=2.4.0,<3.0.0)",
     "mdformat (>=0.7.20,<0.8.0)",
+    "mypy (>=1.13.0,<2.0.0)",
+    "pip-audit (>=2.7.0,<3.0.0)",
     "pytest (>=9.1.1,<10.0.0)",
     "pytest-cov (>=6.0.0,<7.0.0)",
     "ruff (>=0.14.14,<0.15.0)",
@@ -51,3 +53,8 @@ addopts = [
     "--cov-report=xml",
     "--cov-report=html",
 ]
+
+[tool.mypy]
+python_version = "3.11"
+# Third-party packages (web3, etc.) ship without type stubs; focus on our code.
+ignore_missing_imports = true
