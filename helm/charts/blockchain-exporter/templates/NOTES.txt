@@ -14,3 +14,9 @@
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
 {{- end }}
+{{- if gt (int .Values.replicaCount) 1 }}
+
+WARNING: replicaCount is {{ .Values.replicaCount }}. This exporter has no leader
+election — multiple replicas multiply RPC load and produce duplicate series in
+Prometheus. Set replicaCount back to 1.
+{{- end }}

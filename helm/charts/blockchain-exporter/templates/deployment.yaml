@@ -147,13 +147,15 @@ spec:
             {{- end }}
           {{- end }}
           {{- $configVolumeMount := dict "name" "config" "mountPath" "/app/config/config.toml" "subPath" "config.toml" }}
+          {{- $tmpVolumeMount := dict "name" "tmp" "mountPath" "/tmp" }}
           {{- $userVolumeMounts := .Values.volumeMounts | default (list) }}
-          {{- $volumeMounts := concat (list $configVolumeMount) $userVolumeMounts }}
+          {{- $volumeMounts := concat (list $configVolumeMount $tmpVolumeMount) $userVolumeMounts }}
           volumeMounts:
             {{- toYaml $volumeMounts | nindent 12 }}
       {{- $configVolume := dict "name" "config" "configMap" (dict "name" (printf "%s-config" (include "blockchain-exporter.fullname" . ))) }}
+      {{- $tmpVolume := dict "name" "tmp" "emptyDir" (dict) }}
       {{- $userVolumes := .Values.volumes | default (list) }}
-      {{- $volumes := concat (list $configVolume) $userVolumes }}
+      {{- $volumes := concat (list $configVolume $tmpVolume) $userVolumes }}
       volumes:
         {{- toYaml $volumes | nindent 8 }}
       {{- with .Values.nodeSelector }}
