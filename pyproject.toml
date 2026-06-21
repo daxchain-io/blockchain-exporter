@@ -12,11 +12,11 @@ classifiers = [
     "Development Status :: 7 - Inactive",
 ]
 dependencies = [
-    "fastapi (>=0.121.1,<0.122.0)",
+    "fastapi (>=0.121.3,<0.122.0)",
     "uvicorn (>=0.38.0,<0.39.0)",
     "prometheus-client (>=0.23.1,<0.24.0)",
-    "web3 (>=7.14.0,<8.0.0)",
-    "python-dotenv (>=1.2.1,<2.0.0)"
+    "web3 (>=7.16.0,<8.0.0)",
+    "python-dotenv (>=1.2.2,<2.0.0)"
 ]
 
 [project.scripts]
@@ -35,9 +35,9 @@ build-backend = "poetry.core.masonry.api"
 dev = [
     "httpx (>=0.24.0)",
     "mdformat (>=0.7.20,<0.8.0)",
-    "pytest (>=9.0.0,<10.0.0)",
+    "pytest (>=9.1.1,<10.0.0)",
     "pytest-cov (>=6.0.0,<7.0.0)",
-    "ruff (>=0.14.4,<0.15.0)",
+    "ruff (>=0.14.14,<0.15.0)",
 ]
 
 [tool.pytest.ini_options]
