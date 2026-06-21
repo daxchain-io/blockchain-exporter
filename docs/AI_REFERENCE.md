@@ -70,9 +70,10 @@ Use this file when you need to brief an AI assistant about the current state of 
 - JSON logs keep `color_message` for completeness; structured text logs color levels/timestamps unless `LOG_COLOR_ENABLED=false`.
 - Core modules use concise docstrings to describe contexts, factories, and pollers for quick orientation.
 
-## 5. Outstanding Improvements (from `docs/TODO.md`)
+## 5. Maintenance Notes & Design Decisions
 
-- The project is in light maintenance — **security and dependency updates, plus occasional improvements.** See `docs/TODO.md` for the standing maintenance backlog. Test coverage is currently 92%.
+- The project is in light maintenance — **security and dependency updates, plus occasional improvements.** New functionality belongs in [daxchain-io/evm-tools](https://github.com/daxchain-io/evm-tools). Test coverage is currently 92%.
+- **No WebSocket RPC** (deliberate): HTTP RPC is sufficient for polling-based collection. WebSocket adds connection-management, reconnection, and fallback complexity for marginal benefit at multi-minute poll intervals, and HTTP support is more universal across RPC providers.
 
 ## 6. Known Testing & Operational Considerations
 
@@ -105,7 +106,7 @@ Key facts:
 - RPC access goes through `RpcClient` in `rpc.py` with retry/backoff and connection pooling; token transfers use adaptive chunked `eth_getLogs` to handle large response sizes. RPC call duration and error rate metrics are tracked per blockchain and operation type.
 - Health endpoints and readiness gating are implemented in `api.py` / `health.py`. Configuration reload is supported via SIGHUP signal or HTTP POST `/health/reload` endpoint.
 - Kubernetes deployment via Helm chart in `helm/charts/blockchain-exporter/` (ConfigMap, Secret, Deployment, Service, ServiceAccount). Chart generates `config.toml` from declarative `blockchains` configuration or uses custom `config.toml`. Supports direct secret values and references to existing Secrets via `secretRef`. Environment variables are injected for TOML variable interpolation, and additional non-secret variables (including `valueFrom` sources) can be defined via `.Values.env`. Health endpoints are on port 8080, metrics on port 9100. Probes target the health port (8080).
-Status (see TODO.md): the project is deprecated and in light maintenance — security and dependency updates, plus occasional improvements; new functionality belongs in daxchain-io/evm-tools. Existing tooling (validate-config, coverage at 92%, CI, Helm) is in place.
+Status: the project is deprecated and in light maintenance — security and dependency updates, plus occasional improvements; new functionality belongs in daxchain-io/evm-tools. Existing tooling (validate-config, coverage at 92%, CI, Helm) is in place.
 Please follow the existing logging and metrics patterns (no logging of secrets, keep Prometheus label ordering consistent) and respect the user's preference for blank lines between variable declarations. Avoid reformatting unrelated code.
 ```
 

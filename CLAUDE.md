@@ -11,7 +11,7 @@ release now and then, but new functionality generally belongs in evm-tools.
 
 Default to a **maintenance** scope:
 
-- Security fixes and dependency/CVE updates.
+- Security fixes and dependency/CVE updates (watch FastAPI, uvicorn, web3, and prometheus-client especially).
 - Keeping CI green (lint, tests with coverage ≥85%, config validation).
 - Documentation accuracy and small cleanups that keep the repo professional.
 
@@ -23,8 +23,8 @@ mass reformatting, or new runtime dependencies.
 ## Orientation
 
 - **Architecture & data flow:** `docs/AI_REFERENCE.md` (modules, polling
-  lifecycle, logging/metrics conventions, a reusable reference prompt).
-- **Backlog:** `docs/TODO.md` — see "Maintenance (standing)".
+  lifecycle, logging/metrics conventions, design decisions, a reusable
+  reference prompt).
 - **Coverage gaps:** `docs/TEST_COVERAGE_GAPS.md`.
 
 ## Workflow
