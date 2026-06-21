@@ -1,6 +1,6 @@
 [project]
 name = "blockchain-exporter"
-version = "0.1.0"
+version = "0.0.15"
 description = "Blockchain Prometheus metrics exporter (deprecated; superseded by daxchain-io/evm-tools)"
 authors = [
     {name = "Scott K. Thomas, Jr."}

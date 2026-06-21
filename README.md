@@ -9,7 +9,7 @@
 
 [![Status: Deprecated](https://img.shields.io/badge/status-deprecated-red.svg)](#project-status)
 [![CI](https://github.com/daxchain-io/blockchain-exporter/actions/workflows/ci.yaml/badge.svg)](https://github.com/daxchain-io/blockchain-exporter/actions/workflows/ci.yaml)
-[![Coverage](https://img.shields.io/badge/coverage-85%25%2B-brightgreen)](https://github.com/daxchain-io/blockchain-exporter)
+[![Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)](https://github.com/daxchain-io/blockchain-exporter)
 [![Release](https://img.shields.io/github/v/tag/daxchain-io/blockchain-exporter?label=release&sort=semver)](https://github.com/daxchain-io/blockchain-exporter/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Docker](https://img.shields.io/badge/docker-ghcr.io%2Fdaxchain--io%2Fimages%2Fblockchain--exporter-blue)](https://github.com/daxchain-io/blockchain-exporter/pkgs/container/images%2Fblockchain-exporter)
