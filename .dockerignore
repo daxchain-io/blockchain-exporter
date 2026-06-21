@@ -1,0 +1,25 @@
+# Keep the build context minimal — only pyproject/poetry.lock and src are
+# COPYed, but this avoids leaking local state into the build cache.
+.git
+.github
+.venv
+.env
+.env.example
+.coverage*
+coverage.xml
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+__pycache__/
+**/__pycache__/
+*.pyc
+tests/
+docs/
+helm/
+scripts/
+workflows/
+*.md
+.dockerignore
+Dockerfile
+Makefile
