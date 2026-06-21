@@ -1,5 +1,13 @@
 # blockchain-exporter
 
+> [!WARNING]
+> **This project is deprecated and in maintenance mode.** It has been superseded by [**daxchain-io/evm-tools**](https://github.com/daxchain-io/evm-tools) — composable, EVM-native CLI tooling for observing any EVM chain (events, transfers, balances, and contract state).
+>
+> - **Do not build new deployments on this exporter** — use [evm-tools](https://github.com/daxchain-io/evm-tools) instead.
+> - The repository stays available as a reference and for existing deployments.
+> - It is **not actively developed** — expect only occasional maintenance and the rare release. See [Project Status](#project-status).
+
+[![Status: Deprecated](https://img.shields.io/badge/status-deprecated-red.svg)](#project-status)
 [![CI](https://github.com/daxchain-io/blockchain-exporter/actions/workflows/ci.yaml/badge.svg)](https://github.com/daxchain-io/blockchain-exporter/actions/workflows/ci.yaml)
 [![Coverage](https://img.shields.io/badge/coverage-85%25%2B-brightgreen)](https://github.com/daxchain-io/blockchain-exporter)
 [![Release](https://img.shields.io/github/v/tag/daxchain-io/blockchain-exporter?label=release&sort=semver)](https://github.com/daxchain-io/blockchain-exporter/releases)
@@ -12,6 +20,17 @@
 [![Platform](https://img.shields.io/badge/platform-linux%2Famd64%20%7C%20linux%2Farm64-blue)](<>)
 
 A Prometheus exporter for blockchain monitoring. FastAPI-based service that polls Ethereum-compatible chains and exposes metrics in Prometheus format.
+
+## Project Status
+
+**Deprecated — light maintenance.** EVM-native tooling has matured to cover this exporter's job more directly, so active development has moved to [daxchain-io/evm-tools](https://github.com/daxchain-io/evm-tools). What this means in practice:
+
+- **Not actively developed.** The maintainer may occasionally land improvements and cut a release, but new functionality generally belongs in [evm-tools](https://github.com/daxchain-io/evm-tools).
+- **Light maintenance.** Dependency bumps and CVE fixes are applied so existing deployments stay safe and CI stays green.
+- **Still functional.** Everything documented here works — the code, tests, Helm chart, and Docker image remain usable for current deployments.
+- **Reporting.** Issues and security reports are welcome, though responses may be infrequent.
+
+For new work, start with [evm-tools](https://github.com/daxchain-io/evm-tools).
 
 ## Runtime Overview
 
@@ -267,6 +286,8 @@ This Prometheus exporter exposes metrics that can be scraped by Prometheus and u
 - Include these checks in Prometheus alerting rules and runbooks with remediation steps (verify RPC health, credentials, redeploy exporter).
 
 ## Release Checklist
+
+> Releases are infrequent — occasional maintenance and improvements rather than ongoing development. The steps below apply when cutting one.
 
 - Confirm the feature branch is synced with `main` and `git status` is clean aside from intentional release changes.
 - Run `make validate-config` (with and without `CONFIG=...`) to ensure all deployment configs pass aggressive validation.

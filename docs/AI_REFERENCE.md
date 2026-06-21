@@ -1,5 +1,7 @@
 # Blockchain Exporter – Reference Prompt & Architecture Snapshot
 
+> **Status: Deprecated — light maintenance.** This exporter is superseded by [daxchain-io/evm-tools](https://github.com/daxchain-io/evm-tools). Day-to-day scope is security and dependency updates; the maintainer lands occasional improvements. Prefer directing substantial new functionality to evm-tools, and keep this reference accurate when behavior changes.
+
 Use this file when you need to brief an AI assistant about the current state of the project. The sections below capture the architecture, conventions, and open work so you can copy/paste (or link) the right context quickly.
 
 ## 1. System Overview
@@ -70,7 +72,7 @@ Use this file when you need to brief an AI assistant about the current state of 
 
 ## 5. Outstanding Improvements (from `docs/TODO.md`)
 
-- See `docs/TODO.md` for current task list. Recent focus has been on test coverage improvements (now at 92%).
+- The project is in light maintenance — **security and dependency updates, plus occasional improvements.** See `docs/TODO.md` for the standing maintenance backlog. Test coverage is currently 92%.
 
 ## 6. Known Testing & Operational Considerations
 

@@ -1,13 +1,16 @@
 [project]
 name = "blockchain-exporter"
 version = "0.1.0"
-description = "Blockchain Prometheus metrics exporter"
+description = "Blockchain Prometheus metrics exporter (deprecated; superseded by daxchain-io/evm-tools)"
 authors = [
     {name = "Scott K. Thomas, Jr."}
 ]
 readme = "README.md"
 requires-python = "^3.11"
 license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 7 - Inactive",
+]
 dependencies = [
     "fastapi (>=0.121.1,<0.122.0)",
     "uvicorn (>=0.38.0,<0.39.0)",

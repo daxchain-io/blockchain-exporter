@@ -1,5 +1,7 @@
 # TODO
 
+> **Status: Deprecated — light maintenance.** Superseded by [daxchain-io/evm-tools](https://github.com/daxchain-io/evm-tools). Day-to-day work is light maintenance (security and dependency updates); the maintainer lands occasional improvements. The priority sections below are legacy planning retained for context; track ongoing work under "Maintenance (standing)".
+
 ## Instructions
 
 **Task Management:**
@@ -15,6 +17,13 @@
 Items listed in the "Won't Do" section have been considered and explicitly decided against. Do not implement these unless explicitly requested. This section helps avoid revisiting decisions and keeps focus on high-value work.
 
 ## Tasks
+
+### Maintenance (standing)
+
+- Keep dependencies current (Poetry/`pyproject.toml`); apply security/CVE patches promptly.
+- Keep CI green (lint, tests with coverage ≥85%, config validation) after any dependency bump.
+- Track and apply security advisories for runtime deps (FastAPI, uvicorn, web3, prometheus-client).
+- Prefer directing new functionality to [daxchain-io/evm-tools](https://github.com/daxchain-io/evm-tools); land improvements here only deliberately.
 
 ### High Priority (Production Readiness)
 
