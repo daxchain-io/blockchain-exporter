@@ -33,7 +33,7 @@ build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [
-    "httpx (>=0.24.0)",
+    "httpx2 (>=2.4.0,<3.0.0)",
     "mdformat (>=0.7.20,<0.8.0)",
     "pytest (>=9.1.1,<10.0.0)",
     "pytest-cov (>=6.0.0,<7.0.0)",
