@@ -156,6 +156,12 @@ The application includes a Helm chart for Kubernetes deployment. The chart manag
 ### Helm Chart Features
 
 - **Dual-Port Architecture**: Health endpoints on port 8080, Prometheus metrics endpoint on port 9100 for better network isolation and security.
+- **Hardened by default**: The pod runs as a non-root user (uid/gid 1000) with `readOnlyRootFilesystem`, all Linux capabilities dropped, `allowPrivilegeEscalation: false`, and the `RuntimeDefault` seccomp profile (a writable `emptyDir` is mounted at `/tmp`). The ServiceAccount token is not auto-mounted, since the exporter never calls the Kubernetes API.
+- **Resource defaults**: Sensible CPU/memory requests and limits are set out of the box; tune `resources` for your chain count.
+- **Single replica**: `replicaCount` defaults to 1 and should stay there — the exporter has no leader election, so multiple replicas multiply RPC load and duplicate Prometheus series. The chart's install NOTES warn if you set it higher.
+- **ServiceMonitor** (opt-in): Set `serviceMonitor.enabled=true` to emit a Prometheus Operator `ServiceMonitor` that scrapes the metrics port. Requires the `monitoring.coreos.com` CRDs.
+- **NetworkPolicy** (opt-in): Set `networkPolicy.enabled=true` to restrict traffic — ingress to the health/metrics ports and egress to DNS + HTTPS (RPC). Pin sources/endpoints via `networkPolicy.ingress.from` and `networkPolicy.egress`.
+- **PodDisruptionBudget** (opt-in): Set `podDisruptionBudget.enabled=true` (disabled by default, since a PDB on a single replica can block voluntary node drains).
 - **ConfigMap Generation**: Automatically generates `config.toml` from declarative `blockchains` configuration in `values.yaml`, or uses a custom `config.toml` if provided.
 - **Secret Management**: Supports both direct values (stored in a Kubernetes Secret) and references to existing Secrets via `secretRef`.
 - **Environment Variable Injection**: Injects secrets as environment variables for TOML variable interpolation (e.g., `${ETH_MAINNET_RPC_ENDPOINT}`) and supports additional non-secret environment variables (with optional `valueFrom` sources) via `.Values.env`.
@@ -253,6 +259,25 @@ startupProbe:
   failureThreshold: 10
 ```
 
+## Security & Supply Chain
+
+- **Hardened image**: Multi-stage build on a digest-pinned `python:3.11-slim` base, shipping only production dependencies and running as a non-root user (uid/gid 1000). Build tooling (Poetry, curl) is not present in the runtime image.
+
+- **Signed, attested releases**: Released images are signed with [cosign](https://github.com/sigstore/cosign) (keyless, via GitHub OIDC) and carry SBOM and SLSA build-provenance attestations. Verify a release tag with:
+
+  ```bash
+  cosign verify \
+    --certificate-identity-regexp '^https://github.com/daxchain-io/blockchain-exporter/' \
+    --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+    ghcr.io/daxchain-io/images/blockchain-exporter:<tag>
+  ```
+
+- **Vulnerability scanning**: Release builds are scanned with [Trivy](https://github.com/aquasecurity/trivy) and fail on fixable HIGH/CRITICAL findings. Dependencies are audited with `pip-audit` on every CI run, and [Dependabot](.github/dependabot.yml) keeps pip, GitHub Actions, and the base image patched.
+
+- **Pinned toolchain**: GitHub Actions are pinned to commit SHAs, and Poetry is pinned to a fixed version in both CI and the image.
+
+- **Reporting**: See [SECURITY.md](SECURITY.md) for the vulnerability disclosure process.
+
 ## Development Workflow
 
 - `make run`: start both servers (health on `http://localhost:8080`, Prometheus metrics on `http://localhost:9100`).
@@ -319,9 +344,8 @@ The Helm chart will be available at `oci://ghcr.io/daxchain-io/helm-charts/block
 
 ### CI Expectations
 
-- GitHub Actions workflow runs `make lint` (Ruff, Markdown formatting, Hadolint), `make test` (pytest with coverage), and `make validate-config` on pushes to `main` and pull requests.
-- **Docker image build**: When you publish a GitHub release or push a version tag (e.g., `v0.0.1`), the workflow automatically builds and pushes the Docker image to GitHub Container Registry (`ghcr.io/daxchain-io/images/blockchain-exporter`).
-- **Helm chart build**: The same release trigger also packages and pushes the Helm chart to the OCI registry (`oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter`).
+- **On every push to `main` and pull request**, the workflow runs Ruff (Python lint), `mdformat` (Markdown), Hadolint (Dockerfile), an advisory `mypy` type check, `pip-audit` (dependency CVE gate), the pytest suite with coverage, and config validation.
+- **On a published release** (or version tag), it builds and pushes the multi-arch Docker image to `ghcr.io/daxchain-io/images/blockchain-exporter`, scans it with Trivy, attaches SBOM + SLSA provenance attestations, signs it with cosign, then packages and pushes the Helm chart to `oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter`.
 - Coverage gate: ensure the pytest TOTAL line stays at or above **85%** locally before pushing.
 - Treat `make lint && make test && make validate-config` as the local pre-push macro to replicate CI.
 
