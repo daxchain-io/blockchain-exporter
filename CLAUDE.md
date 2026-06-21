@@ -22,10 +22,19 @@ mass reformatting, or new runtime dependencies.
 
 ## Orientation
 
-- **Architecture & data flow:** `docs/AI_REFERENCE.md` (modules, polling
-  lifecycle, logging/metrics conventions, design decisions, a reusable
-  reference prompt).
+- **Code (source of truth):** start at `src/blockchain_exporter/app.py`
+  (`create_app` + lifespan). Background polling lives in `poller/`, RPC and
+  metric collection in `rpc.py` / `collectors.py`, Prometheus metrics in
+  `metrics.py`, and HTTP endpoints in `api.py` / `health.py`. Config loads via
+  `config.py` / `settings.py`.
 - **Coverage gaps:** `docs/TEST_COVERAGE_GAPS.md`.
+
+## Design decisions
+
+- **No WebSocket RPC** (deliberate): HTTP RPC is sufficient for polling-based
+  collection; WebSocket adds connection-management, reconnection, and fallback
+  complexity for marginal benefit at multi-minute poll intervals, and HTTP
+  support is more universal across RPC providers.
 
 ## Workflow
 
@@ -56,7 +65,7 @@ mass reformatting, or new runtime dependencies.
 - Descriptive test names; keep coverage ≥85%.
 
 **Markdown** — format with `mdformat --wrap=keep` (verify via `make lint-md`).
-Keep `README.md` and `docs/AI_REFERENCE.md` accurate when behavior changes.
+Keep `README.md` accurate when behavior changes.
 
 **Config** (`config.toml`, `pyproject.toml`, `values.yaml`) — preserve
 formatting; use `${VAR_NAME}` interpolation for secrets; keep validation
