@@ -177,17 +177,17 @@ The application includes a Helm chart for Kubernetes deployment. The chart manag
 
 ### Installing from OCI Registry
 
-After a release, the Helm chart is available at `ghcr.io/daxchain-io/helm-charts/blockchain-exporter`:
+After a release, the Helm chart is available at `ghcr.io/daxchain-io/charts/blockchain-exporter`:
 
 ```bash
 # Add the OCI registry as a Helm repository (one-time setup)
 helm registry login ghcr.io -u daxchain-io
 
 # Install from OCI registry
-helm install blockchain-exporter oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter --version 0.1.0
+helm install blockchain-exporter oci://ghcr.io/daxchain-io/charts/blockchain-exporter --version 0.1.0
 
 # Or upgrade an existing installation
-helm upgrade blockchain-exporter oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter --version 0.1.0
+helm upgrade blockchain-exporter oci://ghcr.io/daxchain-io/charts/blockchain-exporter --version 0.1.0
 ```
 
 ### Configuration
@@ -328,11 +328,11 @@ This Prometheus exporter exposes metrics that can be scraped by Prometheus and u
      git push origin v0.0.1
      ```
 - **Verify Docker image**: After pushing the tag, the GitHub Actions workflow will automatically build and push the Docker image to `ghcr.io/daxchain-io/images/blockchain-exporter`. Check the Actions tab to confirm the image was published successfully.
-- **Verify Helm chart**: The workflow will also package and push the Helm chart to `ghcr.io/daxchain-io/helm-charts/blockchain-exporter` with the same version as your tag.
+- **Verify Helm chart**: The workflow will also package and push the Helm chart to `ghcr.io/daxchain-io/charts/blockchain-exporter` with the same version as your tag.
 - **Make packages public**: After the first release, make both packages public:
   1. Go to your repository on GitHub
   1. Click on "Packages" in the right sidebar (or navigate to `https://github.com/orgs/daxchain-io/packages`)
-  1. For each package (`images/blockchain-exporter` Docker image and `helm-charts` Helm chart):
+  1. For each package (`images/blockchain-exporter` Docker image and `charts` Helm chart):
      - Click on the package name
      - Click "Package settings"
      - Scroll to "Danger Zone" and click "Change visibility"
@@ -340,12 +340,12 @@ This Prometheus exporter exposes metrics that can be scraped by Prometheus and u
 
 The Docker image will be available at `ghcr.io/daxchain-io/images/blockchain-exporter` with tags matching your release versions (e.g., `v0.0.1`, `0.0.1`, `0.0`, `0`).
 
-The Helm chart will be available at `oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter` with versions matching your release tags (e.g., `0.0.1`).
+The Helm chart will be available at `oci://ghcr.io/daxchain-io/charts/blockchain-exporter` with versions matching your release tags (e.g., `0.0.1`).
 
 ### CI Expectations
 
 - **On every push to `main` and pull request**, the workflow runs Ruff (Python lint), `mdformat` (Markdown), Hadolint (Dockerfile), an advisory `mypy` type check, `pip-audit` (dependency CVE gate), the pytest suite with coverage, and config validation.
-- **On a published release** (or version tag), it builds and pushes the multi-arch Docker image to `ghcr.io/daxchain-io/images/blockchain-exporter`, scans it with Trivy, attaches SBOM + SLSA provenance attestations, signs it with cosign, then packages and pushes the Helm chart to `oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter`.
+- **On a published release** (or version tag), it builds and pushes the multi-arch Docker image to `ghcr.io/daxchain-io/images/blockchain-exporter`, scans it with Trivy, attaches SBOM + SLSA provenance attestations, signs it with cosign, then packages and pushes the Helm chart to `oci://ghcr.io/daxchain-io/charts/blockchain-exporter`.
 - Coverage gate: ensure the pytest TOTAL line stays at or above **85%** locally before pushing.
 - Treat `make lint && make test && make validate-config` as the local pre-push macro to replicate CI.
 

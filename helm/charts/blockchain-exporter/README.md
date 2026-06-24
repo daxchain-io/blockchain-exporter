@@ -14,9 +14,9 @@ A Helm chart for deploying the blockchain-exporter, a FastAPI-based exporter tha
 The chart is published to GitHub Container Registry after each release and is publicly accessible:
 
 ```bash
-helm install blockchain-exporter oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter --namespace blockchain-exporter --create-namespace
+helm install blockchain-exporter oci://ghcr.io/daxchain-io/charts/blockchain-exporter --namespace blockchain-exporter --create-namespace
 
-helm upgrade blockchain-exporter oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter --namespace blockchain-exporter
+helm upgrade blockchain-exporter oci://ghcr.io/daxchain-io/charts/blockchain-exporter --namespace blockchain-exporter
 ```
 
 The standard namespace is `blockchain-exporter` (it will be created automatically if it doesn't exist).
@@ -128,7 +128,7 @@ resources:
 To upgrade to a newer version:
 
 ```bash
-helm upgrade blockchain-exporter oci://ghcr.io/daxchain-io/helm-charts/blockchain-exporter --namespace blockchain-exporter
+helm upgrade blockchain-exporter oci://ghcr.io/daxchain-io/charts/blockchain-exporter --namespace blockchain-exporter
 ```
 
 ## Additional Resources
