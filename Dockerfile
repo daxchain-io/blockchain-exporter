@@ -55,6 +55,11 @@ WORKDIR /app
 COPY --from=builder /app/.venv /app/.venv
 COPY src /app/src
 
+# Remove unused system build tooling (setuptools/wheel) shipped in the base
+# image. The app runs from /app/.venv and never uses them; this clears image
+# scanner findings for their (vendored) packages such as jaraco.context.
+RUN /usr/local/bin/python -m pip uninstall --yes setuptools wheel 2>/dev/null || true
+
 USER 1000
 
 EXPOSE 8080 9100
