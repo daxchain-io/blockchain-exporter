@@ -12,7 +12,7 @@ classifiers = [
     "Development Status :: 7 - Inactive",
 ]
 dependencies = [
-    "fastapi (>=0.138.0,<0.139.0)",
+    "fastapi (>=0.138.2,<0.139.0)",
     "uvicorn (>=0.38.0,<0.39.0)",
     "prometheus-client (>=0.23.1,<0.24.0)",
     "web3 (>=7.16.0,<8.0.0)",
@@ -33,7 +33,7 @@ build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [
-    "httpx2 (>=2.4.0,<3.0.0)",
+    "httpx2 (>=2.5.0,<3.0.0)",
     "mdformat (>=0.7.20,<0.8.0)",
     "mypy (>=1.13.0,<2.0.0)",
     "pip-audit (>=2.7.0,<3.0.0)",
